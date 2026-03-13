@@ -1,0 +1,16 @@
+[package]
+name = "keyed_concurrent_queue"
+version = "0.1.0"
+edition = "2024"
+authors = ["Malek"]
+repository = "https://github.com/MalekiRe/scoped_static"
+license = "MIT OR Apache-2.0"
+description = "This crate provides a concurrent queue which you can key on like a HashMap."
+
+[features]
+std = []
+default = ["std"]
+
+[dependencies]
+bevy_platform = {version = "0.18.1", default-features = false, features = ["alloc"]}
+concurrent-queue = "2.5.0"
