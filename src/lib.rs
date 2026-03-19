@@ -7,9 +7,18 @@ use core::hash::Hash;
 /// `HashMap<K, Arc<ConcurrentQueue<V>>>` behind a single `RwLock`.
 /// - Writers only contend when creating a new key.
 /// - `push` is almost always non-blocking (unbounded queue).
-#[derive(Default)]
 pub struct KeyedQueues<K, V> {
     inner: RwLock<HashMap<K, Arc<ConcurrentQueue<V>>>>,
+}
+
+impl<K, V> Default for KeyedQueues<K, V>
+where
+    K: Eq + Hash + Clone,
+    V: Send + 'static,
+{
+    fn default() -> Self {
+        KeyedQueues::new()
+    }
 }
 
 impl<K, V> KeyedQueues<K, V>
