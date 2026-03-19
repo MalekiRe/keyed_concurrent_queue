@@ -70,7 +70,7 @@ dependencies = [
 
 [[package]]
 name = "keyed_concurrent_queue"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "bevy_platform",
  "concurrent-queue",

@@ -7,6 +7,7 @@ use core::hash::Hash;
 /// `HashMap<K, Arc<ConcurrentQueue<V>>>` behind a single `RwLock`.
 /// - Writers only contend when creating a new key.
 /// - `push` is almost always non-blocking (unbounded queue).
+#[derive(Default)]
 pub struct KeyedQueues<K, V> {
     inner: RwLock<HashMap<K, Arc<ConcurrentQueue<V>>>>,
 }
@@ -45,5 +46,9 @@ where
     pub fn try_send(&self, key: &K, val: V) -> Result<(), concurrent_queue::PushError<V>> {
         let q = self.get_or_create(key);
         q.push(val)
+    }
+
+    pub fn inner(&self) -> &RwLock<HashMap<K, Arc<ConcurrentQueue<V>>>> {
+        &self.inner
     }
 }
